@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nhập Thông Tin</title>
+<link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <h1>Nhập Thông Tin</h1>
+    <div class="form-group">
+        <label for="name">Họ và Tên</label>
+        <input type="text" id="name" required>
+    </div>
+    <div class="form-group">
+        <label for="class">Lớp</label>
+        <input type="text" id="class" required>
+    </div>
+    <div class="form-group">
+        <label for="mssv">MSSV</label>
+        <input type="text" id="mssv" required maxlength="8">
+    </div>
+    <div class="form-group">
+        <label for="event">Tên Sự Kiện</label>
+        <input type="text" id="event" required>
+    </div>
+    <button id="openPopup" onclick="exportToExcel()">Đăng ký</button>
+    <div id= "popup" class="popup"> 
+        <div class="popup-content">
+            <span class="close">&times;</span>
+            <h2>Bạn đã đăng ký thành công!</h2>
+            <p>Chúc mừng bạn đã đăng ký thành công!</p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+    <script>
+        function exportToExcel() {
+            var name = document.getElementById('name').value;
+            var classValue = document.getElementById('class').value;
+            var mssv = document.getElementById('mssv').value;
+            var event = document.getElementById('event').value;
+
+            var data = [
+                ['Họ và Tên', 'Lớp', 'MSSV', 'Tên Sự Kiện'],
+                [name, classValue, mssv, event]
+            ];
+
+            var ws = XLSX.utils.aoa_to_sheet(data);
+            var wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+            XLSX.writeFile(wb, "ThongTin.xlsx");
+        }
+    </script>
+</body>
+</html>
+
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký</title>
+    <link rel="stylesheet" href="main.css">
+    
+    
+       
+    
+</head>
+<body>
+    <div class="container">
+        <h2>Đăng Ký</h2>
+        <form id="registrationForm">
+            <input type="text" id="username" placeholder="Tên tài khoản" required>
+            <input type="password" id="password" placeholder="Mật khẩu" required>
+            <button type="submit">Đăng Ký</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            console.log('Tên tài khoản:', username);
+            console.log('Mật khẩu:', password);
+            // Gửi dữ liệu đến server hoặc lưu trữ vào file Excel
+        });
+    </script>
+</body>
+</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
+<script>
+    document.getElementById('registrationForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        const data = [
+            ['Tên tài khoản', 'Mật khẩu'],
+            [username, password]
+        ];
+
+        const ws = XLSX.utils.aoa_to_sheet(data);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Đăng Ký');
+
+        XLSX.writeFile(wb, 'dang_ky.xlsx');
+    });
+</script>
+-->
